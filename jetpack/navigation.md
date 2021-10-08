@@ -248,6 +248,8 @@ findNavController().navigateUp()
 使用popUpTo，堆栈内会是，A
 使用popUpTo且popUpToInclusive=true，堆栈内ABC都没有
 
+![image](https://github.com/edmond-biguys/beja-coder/blob/main/jetpack/image/navigation1.png)
+
 ```findNavController().navigate(R.id.orderRatingFragmentPop)```
 
 ```
@@ -308,16 +310,19 @@ public boolean navigateUp() {
  </fragment>
 ```
 支持的参数类型如下
-类型 app:argType 语法 是否支持默认值？ 是否支持 null 值？
-整数 app:argType="integer" 是 否
-浮点数 app:argType="float" 是 否
-长整数 app:argType="long" 是 - 默认值必须始终以“L”后缀结尾（例如“123L”）。 否
-布尔值 app:argType="boolean" 是 -“true”或“false” 否
-字符串 app:argType="string" 是 是
-资源引用 app:argType="reference" 是 - 默认值必须为“@resourceType/resourceName”格式（例如，“@style/myCustomStyle”）或“0” 否
-自定义 Parcelable app:argType="<type>"，其中 <type> 是 Parcelable 的完全限定类名称 支持默认值“@null”。不支持其他默认值。 是
-自定义 Serializable app:argType="<type>"，其中 <type> 是 Serializable 的完全限定类名称 支持默认值“@null”。不支持其他默认值。 是
-自定义 Enum app:argType="<type>"，其中 <type> 是 Enum 的完全限定名称 是 - 默认值必须与非限定名称匹配（例如，“SUCCESS”匹配 MyEnum.SUCCESS）。 否
+
+类型 | app:argType 语法 | 是否支持默认值？ | 是否支持 null 值？
+:--: | ---------------- | ------------- | :---------------:
+整数 | app:argType="integer" | 是 | 否
+浮点数 | app:argType="float" | 是 | 否
+长整数 | app:argType="long" | 是- 默认值必须始终以“L”后缀结尾（例如“123L”）。 | 否
+布尔值 | app:argType="boolean" | 是-“true”或“false” | 否
+字符串 | app:argType="string" | 是 | 是
+资源引用 | app:argType="reference" | 是 - 默认值必须为“@resourceType/resourceName”格式（例如，“@style/myCustomStyle”）或“0” | 否
+自定义 Parcelable | app:argType="<type>"，其中 <type> 是 Parcelable 的完全限定类名称 | 支持默认值“@null”。不支持其他默认值。 | 是
+自定义 Serializable | app:argType="<type>"，其中 <type> 是 Serializable 的完全限定类名称 | 支持默认值“@null”。不支持其他默认值。 | 是
+自定义 Enum | app:argType="<type>"，其中 <type> 是 Enum 的完全限定名称 | 是 - 默认值必须与非限定名称匹配（例如，“SUCCESS”匹配 MyEnum.SUCCESS）。 | 否
+	
 接收的fragment直接使用如下代码，即可获取到传递进来的参数
 ```
   override fun onCreate(savedInstanceState: Bundle?) {
