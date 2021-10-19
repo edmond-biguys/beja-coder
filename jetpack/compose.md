@@ -27,7 +27,85 @@ compose 可以预览动画。
 > Note: Text alignment is different from layout alignment, which is about positioning a Composable within a container such as a Row or Column. Check out the Compose layout basics documentation to read more about it.
 
 
-4. about List
+4. about List控件
+*  使用List控件时，如果从业务上已经明确，这个list是不可变的，或者内容不会太多，那么可以考虑简单的使用Column控件，如果需要滚动，可以通过verticalScroll来控制，如下简单代码，
+```
+@Composable
+fun MessageList(messages: List<String>) {
+    val rememberState = rememberScrollState()
+    Column(
+        modifier = Modifier
+            .verticalScroll(state = rememberState)
+            .fillMaxWidth()
+        ) {
+        messages.forEachIndexed { index, s ->
+            var color = blue60
+            if (index % 2 == 0) {
+               color = blue20
+            }
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .height(50.dp)
+                    .background(color),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    modifier = Modifier
+                        .align(alignment = Alignment.Center),
+                    text = s,
+                    textAlign = TextAlign.Center
+
+                )
+            }
+        }
+    }
+}
+```
+
+* 但是当你要展示的列表item比较多，或者不确定item数量时，再使用Column就不合适了，因为使用Column时，不管是否在屏幕上有显示，都会占用内存，会导致性能问题，这时，我们就需要使用到LazyColumn和LazyRow，这两个控件和RecyclerView有相同的规范。使用方法如下，
+```
+//if the list is large or the items is unknown, you can use the LazyColumn or LazyRow
+@Composable
+fun MessageListForLazyColumn(messages: List<String>) {
+    LazyColumn(
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+        modifier = Modifier.background(blue20).fillMaxHeight(),
+        verticalArrangement = Arrangement.SpaceAround) {
+        //this is items
+//        items(messages.size) { index ->
+//            val color = if (index % 2 == 0) blue20 else blue60
+//            Box(modifier = Modifier
+//                .fillMaxWidth()
+//                .height(50.dp)
+//                .background(color),
+//            contentAlignment = Alignment.Center,
+//                ) {
+//                Text(text = messages[index])
+//            }
+//
+//        }
+
+        //this is item
+        item {
+            messages.forEachIndexed { index, s ->
+                val color = if (index % 2 == 0) green20 else green60
+                Box(modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+                .background(color),
+            contentAlignment = Alignment.Center,
+                ) {
+                Text(text = messages[index])
+            }
+            }
+        }
+    }
+}
+```
+这里特别需要注意，verticalArrangement = Arrangement.SpaceAround在使用时，包括Arrangement下的其他一些方法、参数，只有在上述代码items中生效，item中是不生效的，官方文档中提到了在items中使用，猜测就是不能像上边代码这么使用，官方说明如下。
+> To add spacing in-between items, you can use Arrangement.spacedBy(). The example below adds 4.dp of space in-between each item:
+
 
 
 
