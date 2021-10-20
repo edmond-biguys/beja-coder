@@ -73,24 +73,9 @@ fun MessageListForLazyColumn(messages: List<String>) {
         modifier = Modifier.background(blue20).fillMaxHeight(),
         verticalArrangement = Arrangement.SpaceAround) {
         //this is items
-//        items(messages.size) { index ->
-//            val color = if (index % 2 == 0) blue20 else blue60
-//            Box(modifier = Modifier
-//                .fillMaxWidth()
-//                .height(50.dp)
-//                .background(color),
-//            contentAlignment = Alignment.Center,
-//                ) {
-//                Text(text = messages[index])
-//            }
-//
-//        }
-
-        //this is item
-        item {
-            messages.forEachIndexed { index, s ->
-                val color = if (index % 2 == 0) green20 else green60
-                Box(modifier = Modifier
+        items(messages.size) { index ->
+            val color = if (index % 2 == 0) blue20 else blue60
+            Box(modifier = Modifier
                 .fillMaxWidth()
                 .height(50.dp)
                 .background(color),
@@ -98,13 +83,39 @@ fun MessageListForLazyColumn(messages: List<String>) {
                 ) {
                 Text(text = messages[index])
             }
-            }
         }
     }
 }
 ```
-这里特别需要注意，verticalArrangement = Arrangement.SpaceAround在使用时，包括Arrangement下的其他一些方法、参数，只有在上述代码items中生效，item中是不生效的，官方文档中提到了在items中使用，猜测就是不能像上边代码这么使用，官方说明如下。
-> To add spacing in-between items, you can use Arrangement.spacedBy(). The example below adds 4.dp of space in-between each item:
+这里特别需要注意，verticalArrangement = Arrangement.SpaceAround在使用时，包括Arrangement下的其他一些方法、参数，只有在item之间生效，第一次写的时候，我把所有内容写到了一个item中，所以一直不生效，费了一些时间，请注意下边的写法，
+```
+//正确的写法
+itemsIndexed(messages) { index, string -> 
+    ...
+}
+```
+
+```
+//正确的写法
+messages.forEachIndexed { index, string -> 
+    item {
+        ...
+    }
+}
+```
+
+```
+//错误的写法
+//you will make a huge item.
+item {
+    messages.forEachIndexed { index, string ->
+        Box {
+            Text()
+            ...
+        }
+    }
+}
+```
 
 
 
