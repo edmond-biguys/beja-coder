@@ -2,6 +2,44 @@
 # compose 使用
 完整资料请参考官方文档 https://developer.android.com/jetpack/compose/documentation
 
+## 快速接入
+1. 使用最新版本Android Studio
+2. 在app的build.gradle文件中增加相应依赖，及启用信息
+
+```
+android {
+...
+    buildFeatures {
+        // Enables Jetpack Compose for this module
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.0.5'
+    }
+...
+
+}
+
+dependencies {
+    implementation("androidx.compose.ui:ui:1.0.5")
+    // Tooling support (Previews, etc.)
+    implementation("androidx.compose.ui:ui-tooling:1.0.5")
+    // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
+    implementation("androidx.compose.foundation:foundation:1.0.5")
+    // Material Design
+    implementation("androidx.compose.material:material:1.0.5")
+    // Material design icons
+    implementation("androidx.compose.material:material-icons-core:1.0.5")
+    implementation("androidx.compose.material:material-icons-extended:1.0.5")
+    // Integration with observables
+    implementation("androidx.compose.runtime:runtime-livedata:1.0.5")
+    implementation("androidx.compose.runtime:runtime-rxjava2:1.0.5")
+
+    // UI Tests
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.0.5")
+}
+```
+
 ## 避坑指南
 1. 如果出现无法preview情况，请首先尝试rebuild，还是不行情况下，请重启Android Studio，如果还是不行，请确认kotlin版本、compose版本是否匹配。
 我在开发过程中遇到kotlin版本是1.5.21，compose版本是1.0.3两个版本不匹配导致无法preview情况。
