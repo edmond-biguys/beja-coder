@@ -35,6 +35,11 @@ dependencies {
     // Integration with observables
     implementation("androidx.compose.runtime:runtime-livedata:1.0.5")
     implementation("androidx.compose.runtime:runtime-rxjava2:1.0.5")
+    
+    //类似与以前的support库
+    api "com.google.accompanist:accompanist-insets:0.21.3-beta"
+    api "com.google.accompanist:accompanist-insets-ui:0.21.3-beta"
+    api "com.google.accompanist:accompanist-systemuicontroller:0.21.3-beta"
 
     // UI Tests
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.0.5")
