@@ -2,6 +2,8 @@
 # compose 使用
 完整资料请参考官方文档 https://developer.android.com/jetpack/compose/documentation
 
+Google官方提供Jetpack Compose教程 https://developer.android.google.cn/courses/pathways/compose?hl=zh_cn
+
 ## 快速接入
 1. 使用最新版本Android Studio
 2. 在app的build.gradle文件中增加相应依赖，及启用信息
