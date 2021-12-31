@@ -20,7 +20,7 @@ dependencies {
   androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
 
   // Jetpack Compose Integration
-  implementation "androidx.navigation:navigation-compose:2.4.0-alpha03"
+  implementation "androidx.navigation:navigation-compose:2.4.0-rc01"
 }
 ```
 
