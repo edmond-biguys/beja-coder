@@ -23,8 +23,8 @@ Already downloaded: /Users/caoj/Library/Caches/Homebrew/downloads/1a68ea3249dfab
 ==> Pouring glib-2.70.0.big_sur.bottle.tar.gz
 Error: No such file or directory @ rb_sysopen - /Users/caoj/Library/Caches/Homebrew/downloads/8a904d00313d86aa0a019b7db649170254cd77781165d4b2b86aafeadcafe09b--glib-2.70.0.big_sur.bottle.tar.gz
 ```
-提示是在安装```glib```时，找不到下载的文件，，但实际是有这个文件的，只是自动下载后的文件和安装解压时的文件名不一样，然后程序就找不到文件了，不清楚为什么这两个文件名会不一样。
-既然不能自动安装，那么智能手动把需要安装的包都安装下，当然是程序员的手动方式，使用如下shell脚本进行下载，
+提示是在安装```glib```时，找不到下载的文件，但实际是有这个文件的，只是自动下载后的文件和安装解压时的文件名不一样，然后程序就找不到文件了，不清楚为什么这两个文件名会不一样。
+既然不能自动安装，那么只能手动把需要安装的包都安装下，当然是程序员的手动方式，使用如下shell脚本进行下载，
 
 需要下载的包的列表
 > aom, dav1d, libpng, freetype, fontconfig, frei0r, gmp, bdw-gc, libffi, m4, libtool, libunistring, pkg-config, guile, gettext, libidn2, libtasn1, nettle, p11-kit, libevent, c-ares, jemalloc, libev, nghttp2, unbound, gnutls, lame, fribidi, 
