@@ -114,7 +114,7 @@ binding.includeLayout.tvInclude.text = "this is include layout"
     }
 ```
 
-fragment中，使用方法如下
+fragment中，在fragment中使用时，注意需要在onDestroyView中释放，使用方法如下，
 ```
     private var _binding: ResultProfileBinding? = null
     private val binding get() = _binding!!
@@ -128,6 +128,13 @@ fragment中，使用方法如下
         val view = binding.root
         return view
     }
+    
+    override fun onDestroyView() {
+        super.onDestroyView()
+	_binding = null
+    }
+    
+    
 ```
 
 adapter中使用
