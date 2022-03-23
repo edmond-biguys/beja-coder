@@ -1,5 +1,65 @@
 ### ViewModel使用
 
+viewModel使用时，一般会和liveData一起使用，需要导入的库如下
+
+```
+    def lifecycle_version = "2.5.0-alpha04"
+    def arch_version = "2.1.0"
+    // ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    // ViewModel utilities for Compose
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
+    // LiveData
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    // Lifecycles only (without ViewModel or LiveData)
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
+    // Saved state module for ViewModel
+    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version")
+    // Annotation processor
+//    kapt("androidx.lifecycle:lifecycle-compiler:$lifecycle_version")
+    // alternately - if using Java8, use the following instead of lifecycle-compiler
+    implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycle_version")
+    // optional - helpers for implementing LifecycleOwner in a Service
+    implementation("androidx.lifecycle:lifecycle-service:$lifecycle_version")
+    // optional - ProcessLifecycleOwner provides a lifecycle for the whole application process
+    implementation("androidx.lifecycle:lifecycle-process:$lifecycle_version")
+    // optional - ReactiveStreams support for LiveData
+    implementation("androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version")
+    // optional - Test helpers for LiveData
+    testImplementation("androidx.arch.core:core-testing:$arch_version")
+
+    //注意这两个库，加入后 才能使用 by viewModels()
+    implementation 'androidx.activity:activity-ktx:1.4.0'
+    implementation 'androidx.fragment:fragment-ktx:1.4.1'
+    
+    implementation 'androidx.core:core-ktx:1.7.0'
+```
+
+在androidx.activity:activity-ktx:1.4.0中，Google定义了androidx.activity.ComponentActivity.viewModels方法，
+
+在androidx.fragment:fragment-ktx:1.4.1中，Google定义了androidx.fragment.app.Fragment.viewModels方法，
+
+这两个库用来```Use the 'by viewModels()' Kotlin property delegate```，非则你需要如下处理，
+```
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.lifecycle.ViewModelProvider
+
+//这里注意需要继承androidx.activity.ComponentActivity
+class MainActivity : ComponentActivity() {
+
+    private lateinit var viewModel: MainActivityViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        ViewModelProvider(this)[MainActivityViewModel::class.java]
+        viewModel.requestTest()
+    }
+}
+```
+
+
 1. 定义一个ViewModel类，基本使用如下，在官方androidx.lifecycle.ViewModel 注释中有使用说明，并且说明了，如何在多个fragment和activity间通讯。
 
 ```
