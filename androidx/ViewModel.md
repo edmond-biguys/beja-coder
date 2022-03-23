@@ -39,7 +39,7 @@ viewModel使用时，一般会和liveData一起使用，需要导入的库如下
 
 在androidx.fragment:fragment-ktx:1.4.1中，Google定义了androidx.fragment.app.Fragment.viewModels方法，
 
-这两个库用来```Use the 'by viewModels()' Kotlin property delegate```，非则你需要如下处理，
+这两个库用来```Use the 'by viewModels()' Kotlin property delegate```，否则你需要如下处理，
 ```
 import android.os.Bundle
 import androidx.activity.ComponentActivity
