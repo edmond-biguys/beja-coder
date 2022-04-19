@@ -50,7 +50,7 @@ dependencies {
 
 ## 避坑指南
 1. 如果出现无法preview情况，请首先尝试rebuild，还是不行情况下，请重启Android Studio，如果还是不行，请确认kotlin版本、compose版本是否匹配。
-我在开发过程中遇到kotlin版本是1.5.21，compose版本是1.0.3两个版本不匹配导致无法preview情况。
+我在开发过程中遇到kotlin版本是1.5.21，compose版本是1.0.3两个版本不匹配导致无法preview情况。但，所有的库，请依然使用当前的最新版本，在兼容性有问题时候，再去尝试使用老版本，请跟上时代，不要被时代抛弃。
 
 2. 没有start interactive mode按钮处理方法，请在Android Studio设置中，搜索enable interactive，找到 “Enable interactive and animation preview tools”并勾选。
 
