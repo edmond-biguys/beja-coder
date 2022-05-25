@@ -10,7 +10,7 @@ be a simple coder
 
 [3. ViewModel使用](https://github.com/edmond-biguys/beja-coder/blob/main/androidx/ViewModel.md)
 
-[4. DialogFragment使用](https://github.com/edmond-biguys/beja-coder/blob/main/androidx/registerForActivityResult.md)
+[4. registerForActivityResult使用](https://github.com/edmond-biguys/beja-coder/blob/main/androidx/registerForActivityResult.md)
 
 #### Jetpack
 [1. compose使用](https://github.com/edmond-biguys/beja-coder/tree/main/jetpack/compose.md)
