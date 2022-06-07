@@ -38,7 +38,7 @@ be a simple coder
 
 
 #### Android Studio
-[1. Lombok插件在2021.1.1 Android Studio版本上无法正常使用](https://github.com/edmond-biguys/beja-coder/edit/main/android-studio/lombok.md)
+[1. Lombok插件在2021.1.1 Android Studio版本上无法正常使用](https://github.com/edmond-biguys/beja-coder/blob/main/android-studio/lombok.md)
 
 #### 其他
 [1. 发布你的library到公开仓库](https://github.com/edmond-biguys/beja-coder/blob/main/pushlish-your-library.md)
