@@ -37,5 +37,8 @@ be a simple coder
 [2. mac上安装ffmpeg使用](https://github.com/edmond-biguys/beja-coder/tree/main/media/mac上安装ffmpeg.md)
 
 
+#### Android Studio
+[1. Lombok插件在2021.1.1 Android Studio版本上无法正常使用](https://github.com/edmond-biguys/beja-coder/edit/main/android-studio/lombok.md)
+
 #### 其他
 [1. 发布你的library到公开仓库](https://github.com/edmond-biguys/beja-coder/blob/main/pushlish-your-library.md)
