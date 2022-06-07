@@ -11,5 +11,9 @@ lombok 无法正常编译处理。
 
 如：H:\Program Files\Android2020.3.1\plugins\lombok-plugin\lib
 
+如下图方式，重启Android studio后应该就可以恢复。
 
+如果还是行，在Android studio 设置 插件中先禁用Lombok插件，再重复上述步骤
+
+![image](https://github.com/edmond-biguys/beja-coder/blob/main/image/85B5D809-8E93-43b7-A498-B0B19204F5E3.png)
 
