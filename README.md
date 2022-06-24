@@ -42,3 +42,10 @@ be a simple coder
 
 #### 其他
 [1. 发布你的library到公开仓库](https://github.com/edmond-biguys/beja-coder/blob/main/pushlish-your-library.md)
+
+
+------------------
+android skills
+
+#### 基础
+[1. 四大组件及生命周期](https://github.com/edmond-biguys/beja-coder/blob/main/android-base/四大组件及生命周期.md)
