@@ -169,6 +169,9 @@ class Adapter(val items: List<String>): RecyclerView.Adapter<Adapter.ViewHolder>
 ```
     private lateinit var binding: InfoViewTiwaipingBinding
     constructor(context: Context) : super(context) {
+        val root = inflate(context, R.layout.info_view_tiwaiping, this)
+	//root_tiwaiping 为info_view_tiwaiping.xml根布局的id
+        binding = InfoViewTiwaipingBinding.bind(root.root_tiwaiping)
     }
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
@@ -179,9 +182,6 @@ class Adapter(val items: List<String>): RecyclerView.Adapter<Adapter.ViewHolder>
         attrs,
         defStyleAttr
     ) {
-        val root = inflate(context, R.layout.info_view_tiwaiping, this)
-        binding = InfoViewTiwaipingBinding.bind(root)
-        init()
     }
 ```
 
