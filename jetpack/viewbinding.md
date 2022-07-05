@@ -164,6 +164,27 @@ class Adapter(val items: List<String>): RecyclerView.Adapter<Adapter.ViewHolder>
 }
 ```
 
+在自定义view中使用viewBinding
+
+```
+    private lateinit var binding: InfoViewTiwaipingBinding
+    constructor(context: Context) : super(context) {
+    }
+
+    constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
+    }
+
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    ) {
+        val root = inflate(context, R.layout.info_view_tiwaiping, this)
+        binding = InfoViewTiwaipingBinding.bind(root)
+        init()
+    }
+```
+
 总结，不管在哪种界面种使用viewbinding，viewBinding会为你新建的xml文件，增加一个binding类，通过binding类，获取到view即可。
 
 
