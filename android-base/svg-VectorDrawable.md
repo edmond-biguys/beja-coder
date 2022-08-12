@@ -7,6 +7,11 @@ SVG 图像及其相关行为被定义于 XML 文本文件之中，这意味着�
 
 SVG 是由万维网联盟（W3C）自 1999 年开始开发的开放标准。  
 
+### 关于VectorDrawable
+
+[官方说法 about VectorDrawable](https://developer.android.com/guide/topics/graphics/vector-drawable-resources)  
+在Android中，不会直接使用SVG图形，而是通过Vector Asset Studio工具，将SVG图形转换为VectorDrawable。因此，你也可以理解为VectorDrawable其实是Android上的SVG。
+
 [Vector Asset Studio](https://developer.android.com/studio/write/vector-asset-studio?hl=zh-cn)
 
 [Material图标](https://fonts.google.com/icons?selected=Material+Icons&icon.style=Filled)
