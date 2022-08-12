@@ -4,36 +4,24 @@ be a simple coder
 
 使用方法记录
 #### Androidx
-[1. CoordinatorLayout使用](https://github.com/edmond-biguys/beja-coder/blob/main/androidx/CoordinatorLayout.md)
-
-[2. DialogFragment使用](https://github.com/edmond-biguys/beja-coder/blob/main/androidx/DialogFragment.md)
-
-[3. ViewModel使用](https://github.com/edmond-biguys/beja-coder/blob/main/androidx/ViewModel.md)
-
+[1. CoordinatorLayout使用](https://github.com/edmond-biguys/beja-coder/blob/main/androidx/CoordinatorLayout.md)  
+[2. DialogFragment使用](https://github.com/edmond-biguys/beja-coder/blob/main/androidx/DialogFragment.md)  
+[3. ViewModel使用](https://github.com/edmond-biguys/beja-coder/blob/main/androidx/ViewModel.md)  
 [4. registerForActivityResult使用](https://github.com/edmond-biguys/beja-coder/blob/main/androidx/registerForActivityResult.md)
 
 #### Jetpack
-[1. compose使用](https://github.com/edmond-biguys/beja-coder/tree/main/jetpack/compose.md)
-
-[2. kotlin-delegate使用](https://github.com/edmond-biguys/beja-coder/tree/main/jetpack/kotlin-delegate.md)
-
-[3. kotlin关键字使用](https://github.com/edmond-biguys/beja-coder/tree/main/jetpack/kotlin关键字.md)
-
-[4. navigation使用](https://github.com/edmond-biguys/beja-coder/tree/main/jetpack/navigation.md)
-
-[5. protobuf-in-android使用](https://github.com/edmond-biguys/beja-coder/tree/main/jetpack/protobuf-in-android.md)
-
-[6. room使用](https://github.com/edmond-biguys/beja-coder/tree/main/jetpack/room.md)
-
-[7. router使用](https://github.com/edmond-biguys/beja-coder/tree/main/jetpack/router.md)
-
+[1. compose使用](https://github.com/edmond-biguys/beja-coder/tree/main/jetpack/compose.md)  
+[2. kotlin-delegate使用](https://github.com/edmond-biguys/beja-coder/tree/main/jetpack/kotlin-delegate.md)  
+[3. kotlin关键字使用](https://github.com/edmond-biguys/beja-coder/tree/main/jetpack/kotlin关键字.md)  
+[4. navigation使用](https://github.com/edmond-biguys/beja-coder/tree/main/jetpack/navigation.md)  
+[5. protobuf-in-android使用](https://github.com/edmond-biguys/beja-coder/tree/main/jetpack/protobuf-in-android.md)  
+[6. room使用](https://github.com/edmond-biguys/beja-coder/tree/main/jetpack/room.md)  
+[7. router使用](https://github.com/edmond-biguys/beja-coder/tree/main/jetpack/router.md)  
 [8. viewbinding使用](https://github.com/edmond-biguys/beja-coder/tree/main/jetpack/viewbinding.md)
-
 
 #### Media
 
-[1. ffmpeg常用命令使用](https://github.com/edmond-biguys/beja-coder/tree/main/media/ffmpeg常用命令.md)
-
+[1. ffmpeg常用命令使用](https://github.com/edmond-biguys/beja-coder/tree/main/media/ffmpeg常用命令.md)  
 [2. mac上安装ffmpeg使用](https://github.com/edmond-biguys/beja-coder/tree/main/media/mac上安装ffmpeg.md)
 
 
