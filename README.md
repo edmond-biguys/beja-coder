@@ -38,4 +38,5 @@ android skills
 #### 基础
 [1. 四大组件及生命周期](https://github.com/edmond-biguys/beja-coder/blob/main/android-base/四大组件及生命周期.md)  
 [2. SVG & VectorDrawable](https://github.com/edmond-biguys/beja-coder/blob/main/android-base/svg-VectorDrawable.md)  
-[3. 测试-核心应用质量](https://github.com/edmond-biguys/beja-coder/blob/main/android-base/核心应用质量.md)
+[3. 测试-核心应用质量](https://github.com/edmond-biguys/beja-coder/blob/main/android-base/核心应用质量.md)  
+[4. MMKV存储](https://github.com/edmond-biguys/beja-coder/blob/main/android-base/MMKV存储.md)
