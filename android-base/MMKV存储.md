@@ -7,3 +7,5 @@
 省去了一部拷贝操作，效率得到提升。  
 3. mmap和read、write等一样，都属于Linux的系统调用（system call）
 
+* shared preference，sqlite，datastore
+
