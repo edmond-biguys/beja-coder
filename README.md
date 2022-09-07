@@ -8,6 +8,7 @@ be a simple coder
 [2. DialogFragment使用](https://github.com/edmond-biguys/beja-coder/blob/main/androidx/DialogFragment.md)  
 [3. ViewModel使用](https://github.com/edmond-biguys/beja-coder/blob/main/androidx/ViewModel.md)  
 [4. registerForActivityResult使用](https://github.com/edmond-biguys/beja-coder/blob/main/androidx/registerForActivityResult.md)
+[5. kotlin-flow](https://github.com/edmond-biguys/beja-coder/blob/main/androidx/kotlin-flow.md)
 
 #### Jetpack
 [1. compose使用](https://github.com/edmond-biguys/beja-coder/tree/main/jetpack/compose.md)  
