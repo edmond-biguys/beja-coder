@@ -40,3 +40,6 @@ android skills
 [2. SVG & VectorDrawable](https://github.com/edmond-biguys/beja-coder/blob/main/android-base/svg-VectorDrawable.md)  
 [3. 测试-核心应用质量](https://github.com/edmond-biguys/beja-coder/blob/main/android-base/核心应用质量.md)  
 [4. MMKV存储](https://github.com/edmond-biguys/beja-coder/blob/main/android-base/MMKV存储.md)
+
+### 设计模式
+[代理模式](https://github.com/edmond-biguys/beja-coder/blob/main/design-pattern/代理模式.md)
