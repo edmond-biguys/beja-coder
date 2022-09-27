@@ -188,3 +188,8 @@ android {
    endTime , datetime(endTime /1000, 'unixepoch', 'localtime')  as end_date 
    FROM ADVERT_V3_PLAY_PLAN avpp WHERE contentName LIKE 'test%'
    ```
+2. 查询
+
+   ```sql
+   SELECT * FROM ADVERT_V3_PLAY_MATERIAL avpm WHERE parentId IN ('352152707','363163413','363687907','363687913')
+   ```
