@@ -108,7 +108,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityViewBindingTestBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-     
+   
 		//merge 情况下需要这么使用，感觉有点啰嗦
         val mergeBinding: LayoutIncludeMergeBinding = LayoutIncludeMergeBinding.bind(binding.root)
         mergeBinding.tvIncludeMerge.text = "this is include merge layout"
@@ -117,7 +117,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 		//include 情况下使用
 binding.includeLayout.tvInclude.text = "this is include layout"
 
-	
+
 		//include 情况下，模仿merge方式的用法
         val includeBinding: LayoutIncludeBinding = LayoutIncludeBinding.bind(binding.includeLayout.root)
         includeBinding.tvInclude.text = "this is include layout"
@@ -199,44 +199,22 @@ class Adapter(val items: List<String>): RecyclerView.Adapter<Adapter.ViewHolder>
 
 
 
-对ViewBinding进行简单封装。
 
-```kotlin
-import android.app.Activity
-import androidx.annotation.LayoutRes
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
-import kotlin.reflect.KProperty
+**与数据绑定的对比**
+***视图绑定***和***数据绑定***均会生成可用于直接引用视图的绑定类。但是，视图绑定旨在处理更简单的用例，与数据绑定相比，具有以下优势：
 
-/**
- * A delegate who lazily inflates a data binding layout, calls [Activity.setContentView] and returns
- * the binding.
- */
-class ContentViewBindingDelegate<in R : Activity, out T : ViewDataBinding>(
-    @LayoutRes private val layoutRes: Int
-) {
+* 更快的编译速度：视图绑定不需要处理注释，因此编译时间更短。
+* 易于使用：视图绑定不需要特别标记的 XML 布局文件，因此在应用中采用速度更快。在模块中启用视图绑定后，它会自动应用于该模块的所有布局。
 
-    private var binding: T? = null
+反过来，与数据绑定相比，视图绑定也具有以下限制：
 
-    operator fun getValue(activity: R, property: KProperty<*>): T {
-        if (binding == null) {
-            binding = DataBindingUtil.setContentView(activity, layoutRes)
-        }
-        return binding!!
-    }
-}
+* 视图绑定不支持布局变量或布局表达式，因此不能用于直接在 XML 布局文件中声明动态界面内容。
+* 视图绑定*不支持双向数据*绑定。
 
-fun <R : Activity, T : ViewDataBinding> contentView(
-    @LayoutRes layoutRes: Int
-): ContentViewBindingDelegate<R, T> = ContentViewBindingDelegate(layoutRes)
-```
+考虑到这些因素，在某些情况下，最好在项目中同时使用视图绑定和数据绑定。您可以在需要高级功能的布局中使用数据绑定，而在不需要高级功能的布局中使用视图绑定。
 
-在activity中使用
-
-```kotlin
-private val binding by contentView<ShotActivity, ActivityDribbbleShotBinding>(
-        R.layout.activity_dribbble_shot
-    )
-```
 
 总结，不管在哪种界面种使用viewbinding，viewBinding会为你新建的xml文件，增加一个binding类，通过binding类，获取到view即可。
+
+
+关于[数据绑定](https://github.com/edmond-biguys/beja-coder/tree/main/jetpack/databinding.md)，我们会在另一篇中说明。
