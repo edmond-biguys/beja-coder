@@ -42,7 +42,7 @@ App中定义一个接口，因为这个接口使用了@Component注解，所以�
 
 在这个接口里，我们定义两个方法，这两个方法，会在对应的activity中调用。@Singleton注解我们，表示单例，至于为啥在这里加，后边再说。
 
-在activity中使用
+#### 3. 在activity中使用
 
 ```kotlin
 class MainActivity : BaseActivity() {
