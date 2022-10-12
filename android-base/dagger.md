@@ -55,9 +55,14 @@ class MainActivity : BaseActivity() {
     @Inject lateinit var userRemoteDataSource: UserRemoteDataSource
 
     override fun onCreate(savedInstanceState: Bundle?) {
+	//需要添加到super.onCreate(savedInstanceState)之前，避免出现 fragment 恢复问题
+	// Make Dagger instantiate @Inject fields in LoginActivity
+        (applicationContext as App).appGraph.inject(this)
+	// Now loginViewModel is available
+
         super.onCreate(savedInstanceState)
 
-        (applicationContext as App).appGraph.inject(this)
+
 
         Log.i("MainActivity", "userLocalDataSource: $userLocalDataSource ")
         Log.i("MainActivity", "userRemoteDataSource: $userRemoteDataSource ")
@@ -77,8 +82,10 @@ class LoginActivity : BaseActivity() {
     @Inject lateinit var userRemoteDataSource: UserRemoteDataSource
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+	//需要添加到super.onCreate(savedInstanceState)之前，避免出现 fragment 恢复问题
         (applicationContext as App).appGraph.inject(this)
+        super.onCreate(savedInstanceState)
+
         binding = ActivityLoginBinding.inflate(layoutInflater)
 
 
@@ -88,7 +95,13 @@ class LoginActivity : BaseActivity() {
 
 如上代码，可以看到loginViewModel，userLocalDataSource，userRemoteDataSource几个都是通过@Inject注解，注入进来的。
 
-如果你要在activity中使用，请在onCreate时候使用代码(applicationContext as App).appGraph.inject(this)，至于为啥，以后再研究，这么用就行了，//todo。
+如果你要在activity中使用，请在onCreate时候使用代码(applicationContext as App).appGraph.inject(this)，Make Dagger instantiate @Inject fields in LoginActivity，官方说明中，解释了，这句代码是通知dagger初始化，当前类中带有@Inject注解的字段，这句代码以后，当前类中带有@Inject注解的字段，就已经被实例化了，可以正常使用。
+
+另外，这句代码需要添加到super.onCreate方法之前，官方的说法是，
+
+> 使用 activity 时，应在调用 `super.onCreate()` 之前在 activity 的 `onCreate()` 方法中注入 Dagger，以避免出现 fragment 恢复问题。在 `super.onCreate()` 中的恢复阶段，activity 会附加可能需要访问 activity 绑定的 fragment。
+>
+> 使用 Fragment 时，应在 Fragment 的 `onAttach()` 方法中注入 Dagger。在这种情况下，此操作可以在调用 `super.onAttach()` 之前或之后完成。
 
 ```kotlin
 @Singleton
