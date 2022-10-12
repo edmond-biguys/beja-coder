@@ -137,4 +137,6 @@ class UserRemoteDataSource @Inject constructor() {
 
 同时，我在LoginViewModel，UserLocalDataSource两个类上，增加了@Singleton注解，表示这两个在使用的时候为单例，这也是为什么之前要在App中的AppGraph接口增加@Singleton注解的原因，否则编译会报错，至于错误原因，以后再深究。
 
+这对LoginViewModel使用了@Singleton注解，这样在不同的activity，或者fragment中使用时，将得到同一个LoginViewModel实例，方便使用。
+
 至此，我们已经可以正常使用dagger注解，关于如何对dagger进行封装使用，以后再研究。
