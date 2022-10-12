@@ -19,14 +19,13 @@ dependencies {
 }
 ```
 
-
 简单使用流程，这里只记录怎么使用，至于为什么，以后再研究。
 
 #### 2. 在自定义的Application中修改
 
 ```kotlin
 @Singleton
-@Component
+@Component(modules = [NetworkModule::class])
 interface AppGraph {
     fun inject(activity: LoginActivity)
     fun inject(activity: MainActivity)
@@ -36,7 +35,6 @@ class App: Application() {
     val appGraph = DaggerAppGraph.create()
 }
 ```
-
 
 App中定义一个接口，因为这个接口使用了@Component注解，所以接口名称可以叫AppComponent，或者因为这相当于一个导航图，也可以叫AppGraph。
 
@@ -81,6 +79,8 @@ class LoginActivity : BaseActivity() {
     @Inject lateinit var userLocalDataSource: UserLocalDataSource
     @Inject lateinit var userRemoteDataSource: UserRemoteDataSource
 
+    @Inject lateinit var loginService: LoginService
+
     override fun onCreate(savedInstanceState: Bundle?) {
 	//需要添加到super.onCreate(savedInstanceState)之前，避免出现 fragment 恢复问题
         (applicationContext as App).appGraph.inject(this)
@@ -119,7 +119,6 @@ class LoginViewModel @Inject constructor(
 }
 ```
 
-
 ```kotlin
 class UserRepository @Inject constructor(
     private val userLocalDataSource: UserLocalDataSource,
@@ -133,16 +132,16 @@ class UserRepository @Inject constructor(
 }
 ```
 
-
 ```kotlin
 @Singleton
 class UserLocalDataSource @Inject constructor() {
 }
 ```
 
-
 ```kotlin
-class UserRemoteDataSource @Inject constructor() {
+class UserRemoteDataSource @Inject constructor(
+	private val loginService: LoginService
+) {
 }
 ```
 
@@ -151,5 +150,24 @@ class UserRemoteDataSource @Inject constructor() {
 同时，我在LoginViewModel，UserLocalDataSource两个类上，增加了@Singleton注解，表示这两个在使用的时候为单例，这也是为什么之前要在App中的AppGraph接口增加@Singleton注解的原因，否则编译会报错，至于错误原因，以后再深究。
 
 这对LoginViewModel使用了@Singleton注解，这样在不同的activity，或者fragment中使用时，将得到同一个LoginViewModel实例，方便使用。
+
+```kotlin
+@Module
+class NetworkModule {
+
+    @Singleton
+    @Provides
+    fun provideLoginService(): LoginService {
+
+        return Retrofit.Builder()
+            .baseUrl("http://xxx-url.com")
+            .build()
+            .create(LoginService::class.java)
+    }
+}
+```
+
+在UserRemoteDataSource中使用了loginService，针对LoginService的注入，略有不同，通过@Module来实现，同时需要在App类中将@Component修改为@Component(modules = [NetworkModule::class])，另外在NetworkModule中的provideLoginService方法增加@Provides注解，如果需要这个loginService为单例，则在provideLoginService方法上加@Singleton注解，注意，这里不能将@Singleton注解加到NetworkModule类上，否则会报错。
+
 
 至此，我们已经可以正常使用dagger注解，关于如何对dagger进行封装使用，以后再研究。
