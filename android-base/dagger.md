@@ -104,7 +104,6 @@ class LoginActivity : BaseActivity() {
 > 使用 Fragment 时，应在 Fragment 的 `onAttach()` 方法中注入 Dagger。在这种情况下，此操作可以在调用 `super.onAttach()` 之前或之后完成。
 
 ```kotlin
-@Singleton
 class LoginViewModel @Inject constructor(
     private val userRepository: UserRepository
 ): ViewModel() {
@@ -120,6 +119,7 @@ class LoginViewModel @Inject constructor(
 ```
 
 ```kotlin
+@Singleton
 class UserRepository @Inject constructor(
     private val userLocalDataSource: UserLocalDataSource,
     private val userRemoteDataSource: UserRemoteDataSource
@@ -133,7 +133,6 @@ class UserRepository @Inject constructor(
 ```
 
 ```kotlin
-@Singleton
 class UserLocalDataSource @Inject constructor() {
 }
 ```
@@ -147,9 +146,7 @@ class UserRemoteDataSource @Inject constructor(
 
 从以上LoginViewModel, UserRepository, UserLocalDataSource, UserRemoteDataSource几个类可以看到，如果要在其他类中使用注解，需要对这个类的构造函数增加一个@Inject注解。
 
-同时，我在LoginViewModel，UserLocalDataSource两个类上，增加了@Singleton注解，表示这两个在使用的时候为单例，这也是为什么之前要在App中的AppGraph接口增加@Singleton注解的原因，否则编译会报错，至于错误原因，以后再深究。
-
-这对LoginViewModel使用了@Singleton注解，这样在不同的activity，或者fragment中使用时，将得到同一个LoginViewModel实例，方便使用。
+同时，我在UserRepository类上，增加了@Singleton注解，表示这个在使用的时候为单例，这也是为什么之前要在App中的AppGraph接口增加@Singleton注解的原因，否则编译会报错，至于错误原因，以后再深究。
 
 ```kotlin
 @Module
@@ -168,6 +165,23 @@ class NetworkModule {
 ```
 
 在UserRemoteDataSource中使用了loginService，针对LoginService的注入，略有不同，通过@Module来实现，同时需要在App类中将@Component修改为@Component(modules = [NetworkModule::class])，另外在NetworkModule中的provideLoginService方法增加@Provides注解，如果需要这个loginService为单例，则在provideLoginService方法上加@Singleton注解，注意，这里不能将@Singleton注解加到NetworkModule类上，否则会报错。
+
+#### 4. Dagger 子组件
+
+上述实例中，我简单实现了dagger的用法，但是会存在一些问题，比如现在有一个LoginActivity, 两个fragment, 分别是LoginUsernameFragment, LoginPasswordFragment, 在上述类中，LoginActivity, LoginUsernameFragment, LoginPasswordFragment都需要用到loginViewModel，此时，我希望是3个类可以共用一个LoginViewModel，这样数据就可以共享，最简单的方式，你可以为LoginViewModel增加@Singleton注解，这样就可以实现功能了。
+
+但是这种情况下，你的LoginViewModel的生命周期是跟着application的，就算你完成了Login流程，你的LoginViewModel还是在，比如，你退出登录，然后重新登录，你拿到的LoginViewModel，依然是之前的LoginViewModel，显然这样，并不合理，这里我们需要用到Dagger子组件，可以解决这个问题。
+
+
+
+
+
+
+
+
+
+
+
 
 
 至此，我们已经可以正常使用dagger注解，关于如何对dagger进行封装使用，以后再研究。
