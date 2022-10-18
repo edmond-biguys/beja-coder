@@ -254,22 +254,99 @@ override fun onAttach(context: Context) {
 
 通过这种子组件，并使用ActivityScope作用域来实现注入loginViewModel的方式，你可以发现，每次你启动activity时，在activity及两个fragment中，生成的loginViewModel都是同一个对象，就实现了loginViewModel的公用。同时，你如果再次启动loginActivity，loginViewModel将变成一个新的实例。
 
-
-
 大致流程图示。
 
 ![1665731543922](image/dagger/1665731543922.png)
 
+#### 5. 多模块时，dagger使用
 
+首先，我们新建一个settings library module，并在app中添加这个settingsLibrary的依赖，同时创建一个SettingsActivity，一个SettingsViewModel，此时，我们做好了准备工作，开始使用dagger。
 
+基本的思路是，创建一个ISettingsGraphProvider接口，让app中的Application实现此接口，这样在SettingsModule中就可以正常拿到Graph了。
 
+以下是使用步骤，
 
+1. 新建一个ISettingsGraphProvider接口
 
+```kotlin
+interface ISettingsGraphProvider {
+    fun providerSettingsGraph(): SettingsGraph
+}
+```
 
+2. 新建一个SettingsGraph
 
+```kotlin
+@Subcomponent
+interface SettingsGraph {
+    @Subcomponent.Factory
+    interface Factory {
+        fun create(): SettingsGraph
+    }
+    fun inject(activity: SettingsActivity)
+}
+```
 
+3. app的application中实现ISettingsGraphProvider接口
 
+```kotlin
+@Singleton
+@Component(modules = [NetworkModule::class, SubcomponentsModule::class])
+interface AppGraph {
+    fun inject(activity: MainActivity)
+    fun loginGraph(): LoginGraph.Factory
+    //settings module
+    fun settingGraph(): SettingsGraph.Factory
+}
 
+class App: Application(), ISettingsGraphProvider {
+    val appGraph: AppGraph = DaggerAppGraph.create()
+
+    override fun providerSettingsGraph(): SettingsGraph {
+        return appGraph.settingGraph().create()
+    }
+}
+```
+
+4. SettingsActivity中使用注解
+
+```kotlin
+class SettingsViewModel @Inject constructor(): ViewModel() {
+    private val TAG: String = "SettingsViewModel"
+
+    fun start() {
+        Log.i(TAG, "start: $this")
+    }
+}
+```
+
+```kotlin
+class SettingsActivity : AppCompatActivity() {
+
+    @Inject lateinit var settingsViewModel: SettingsViewModel
+    override fun onCreate(savedInstanceState: Bundle?) {
+	//告诉Dagger初始化
+        (applicationContext as ISettingsGraphProvider).providerSettingsGraph().inject(this)
+        //初始化成功后，就可以获取到settingsViewModel
+        settingsViewModel.start()
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.settings_activity)
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.settings, SettingsFragment())
+                .commit()
+        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    class SettingsFragment : PreferenceFragmentCompat() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.root_preferences, rootKey)
+        }
+    }
+}
+```
 
 
 至此，我们已经可以正常使用dagger注解，关于如何对dagger进行封装使用，以后再研究。
