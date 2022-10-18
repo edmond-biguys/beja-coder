@@ -349,4 +349,7 @@ class SettingsActivity : AppCompatActivity() {
 ```
 
 
+
+[示例代码git地址](https://github.com/edmond-biguys/DaggerSample)
+
 至此，我们已经可以正常使用dagger注解，关于如何对dagger进行封装使用，以后再研究。
