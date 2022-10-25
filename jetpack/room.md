@@ -74,6 +74,8 @@ data class GitHubRepo(
     )
 ```
 
+这里补充一个后来项目中遇到的问题，使用注解@Entity时（注解在room-common库中），发现没有响应的依赖，对比了很久发现，实际的依赖库中，没有androidx.room:room-common库，并且尝试在build中，手动增加 implementation "androidx.room:room-common:2.4.3" 这个依赖，依然没有，尝试各种办法，最后发现，使用阿里云镜像后，会出现找不到这个依赖的情况，去掉阿里云镜像后，就可以正常依赖了。
+
 #### 数据访问对象DAO（data access object）
 
 ```kotlin
@@ -176,7 +178,6 @@ android {
         githubRepoDao.getAll()
     }
 ```
-
 
 #### SQLite SQL使用
 
