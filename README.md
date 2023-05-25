@@ -36,6 +36,8 @@ be a simple coder
 
 [9. databinding使用](https://github.com/edmond-biguys/beja-coder/tree/main/jetpack/databinding.md)
 
+[10. Camera使用](https://github.com/edmond-biguys/beja-coder/edit/main/jetpack/camera.md)
+
 #### Media
 
 [1. ffmpeg常用命令使用](https://github.com/edmond-biguys/beja-coder/tree/main/media/ffmpeg常用命令.md)  
