@@ -15,20 +15,56 @@ CameraX API：CameraX 是在 Android Jetpack 组件库中引入的相机 API，�
 
 以下我们来记录下CameraX的使用基本方法、常见API及更进一步的了解关于CameraX，Google替我们做了哪些。
 
-设备兼容  
+### 设备兼容  
 CameraX 支持搭载 Android 5.0（API 级别 21）或更高版本的设备，覆盖现有 Android 设备的 98% 以上。
 
-易用性  
-预览：在屏幕上查看图片。  
-图片分析：无缝访问缓冲区中的图片以便在算法中使用，例如将其传递到机器学习套件。  
-图片拍摄：保存图片。  
-视频拍摄：保存视频和音频。  
+### 易用性  
+* 预览：在屏幕上查看图片。  
+* 图片分析：无缝访问缓冲区中的图片以便在算法中使用，例如将其传递到机器学习套件。  
+* 图片拍摄：保存图片。  
+* 视频拍摄：保存视频和音频。  
 
-确保各设备间的一致性  
+### 确保各设备间的一致性  
 要维持一致的相机行为并非易事。您必须考虑宽高比、屏幕方向、旋转角度、预览大小和图像大小。有了 CameraX，这些基本行为都不用您再费心。  
 我们设立了一个自动化 CameraX 测试实验室（如下图），用于测试搭载 Android 5.0 及更高版本的一系列设备和这些操作系统版本中的各种相机行为。我们将持续运行这些测试，以找出各种各样的问题并进行修复。  
 <img src="https://developer.android.com/static/images/training/camera/camerax/testing-lab.png?hl=zh-cn" width=400>
 
-相机扩展，CameraX有一个extensions API，扩展程序包含焦外成像（人像）、高动态范围 (HDR)、夜间模式和脸部照片修复功能，所有这些都需要设备支持。
+### 相机扩展  
+CameraX有一个extensions API，扩展程序包含焦外成像（人像）、高动态范围 (HDR)、夜间模式和脸部照片修复功能，所有这些都需要设备支持。
 
-CameraX架构 （CameraX architecture）
+### CameraX架构 （CameraX architecture）  
+架构包含了结构（structure），API使用，生命周期（lifecycles），用例如何组合使用（how to combine use cases）
+
+#### 结构（structure）
+* 预览 Preview
+* 图片分析Image analysis
+* 图片拍摄 Capture Image
+* 视频拍摄 Capture Video  
+上述的用例，你也有组合使用，比如在图片拍摄时，使用图片分析（take a picture when the people in the photo are smiling）
+
+#### API Model  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
