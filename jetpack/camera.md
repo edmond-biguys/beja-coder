@@ -42,9 +42,60 @@ CameraX有一个extensions API，扩展程序包含焦外成像（人像）、�
 * 视频拍摄 Capture Video  
 上述的用例，你也有组合使用，比如在图片拍摄时，使用图片分析（take a picture when the people in the photo are smiling）
 
-#### API Model  
+#### 开始使用CameraX
+打开项目的 settings.gradle 文件并添加 google() 代码库，如下所示：  
+```
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+```
+在build.gradle中添加依赖  
+```
+// CameraX core library using the camera2 implementation
+    def camerax_version = "1.3.0-alpha07"
+    // The following line is optional, as the core library is included indirectly by camera-camera2
+    implementation "androidx.camera:camera-core:${camerax_version}"
+    implementation "androidx.camera:camera-camera2:${camerax_version}"
+    // If you want to additionally use the CameraX Lifecycle library
+    implementation "androidx.camera:camera-lifecycle:${camerax_version}"
+    // If you want to additionally use the CameraX VideoCapture library
+    implementation "androidx.camera:camera-video:${camerax_version}"
+    // If you want to additionally use the CameraX View class
+    implementation "androidx.camera:camera-view:${camerax_version}"
+    // If you want to additionally add CameraX ML Kit Vision Integration
+    implementation "androidx.camera:camera-mlkit-vision:${camerax_version}"
+    // If you want to additionally use the CameraX Extensions library
+    implementation "androidx.camera:camera-extensions:${camerax_version}"
+```  
+然后在布局文件xml中添加一个PreviewView，代码如下
+```
+<androidx.camera.view.PreviewView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:id="@+id/previewView"
+        />
+```
+PreviewView是一个自定义的view,用来显示camera的数据，PreviewView默认使用SurfaceView，当让你也可以通过设置来修改为TextureView，设置方法如下，
+```
+//这个是默认模式，使用surfaceView
+previewView.implementationMode = PreviewView.ImplementationMode.PERFORMANCE
 
+previewView.implementationMode = PreviewView.ImplementationMode.COMPATIBLE
+```
 
+针对上边的使用以下是官方说明
+>Use a SurfaceView for the preview when possible. If the device doesn't support SurfaceView, PreviewView will fall back to use a TextureView instead.
+PreviewView falls back to TextureView when the API level is 24 or lower, the camera hardware support level is CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY, or Preview.getTargetRotation() is different from PreviewView's display rotation.
+Do not use this mode if Preview.Builder.setTargetRotation(int) is set to a value different than the display's rotation, because SurfaceView does not support arbitrary rotations. Do not use this mode if the PreviewView needs to be animated. SurfaceView animation is not supported on API level 24 or lower. Also, for the preview's streaming state provided in getPreviewStreamState, the PreviewView.StreamState.STREAMING state might happen prematurely if this mode is used.
+See Also:
+Preview.Builder.setTargetRotation(int), Preview.Builder.getTargetRotation(), Display.getRotation(), CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY, PreviewView.StreamState.STREAMING  
+
+默认使用SurfaceView, 在不支持的设备上（如API小于等于24的），会降级使用TextureView
 
 
 
