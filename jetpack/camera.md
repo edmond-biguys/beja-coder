@@ -43,6 +43,7 @@ CameraX有一个extensions API，扩展程序包含焦外成像（人像）、�
 上述的用例，你也有组合使用，比如在图片拍摄时，使用图片分析（take a picture when the people in the photo are smiling）
 
 #### 开始使用CameraX
+##### 添加依赖
 打开项目的 settings.gradle 文件并添加 google() 代码库，如下所示：  
 ```
 dependencyResolutionManagement {
@@ -71,6 +72,9 @@ dependencyResolutionManagement {
     // If you want to additionally use the CameraX Extensions library
     implementation "androidx.camera:camera-extensions:${camerax_version}"
 ```  
+
+#### 预览Preview
+
 然后在布局文件xml中添加一个PreviewView，代码如下
 ```
 <androidx.camera.view.PreviewView
@@ -89,16 +93,56 @@ previewView.implementationMode = PreviewView.ImplementationMode.COMPATIBLE
 ```
 
 针对上边的使用以下是官方说明
->Use a SurfaceView for the preview when possible. If the device doesn't support SurfaceView, PreviewView will fall back to use a TextureView instead.
-PreviewView falls back to TextureView when the API level is 24 or lower, the camera hardware support level is CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY, or Preview.getTargetRotation() is different from PreviewView's display rotation.
-Do not use this mode if Preview.Builder.setTargetRotation(int) is set to a value different than the display's rotation, because SurfaceView does not support arbitrary rotations. Do not use this mode if the PreviewView needs to be animated. SurfaceView animation is not supported on API level 24 or lower. Also, for the preview's streaming state provided in getPreviewStreamState, the PreviewView.StreamState.STREAMING state might happen prematurely if this mode is used.
-See Also:
-Preview.Builder.setTargetRotation(int), Preview.Builder.getTargetRotation(), Display.getRotation(), CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY, PreviewView.StreamState.STREAMING  
+>Use a SurfaceView for the preview when possible. If the device doesn't support SurfaceView, PreviewView will fall back to use a TextureView instead.  
+PreviewView falls back to TextureView when the API level is 24 or lower, the camera hardware support level is CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY, or Preview.getTargetRotation() is different from PreviewView's display rotation.  
+Do not use this mode if Preview.Builder.setTargetRotation(int) is set to a value different than the display's rotation, because SurfaceView does not support arbitrary rotations. Do not use this mode if the PreviewView needs to be animated. SurfaceView animation is not supported on API level 24 or lower. Also, for the preview's streaming state provided in getPreviewStreamState, the PreviewView.StreamState.STREAMING state might happen prematurely if this mode is used.  
+See Also:  
+Preview.Builder.setTargetRotation(int),  
+Preview.Builder.getTargetRotation(),  
+Display.getRotation(),  
+CameraCharacteristics.INFO_SUPPORTED_HARDWARE_LEVEL_LEGACY,  
+PreviewView.StreamState.STREAMING  
 
-默认使用SurfaceView, 在不支持的设备上（如API小于等于24的），会降级使用TextureView
+默认使用SurfaceView, 在不支持的设备上（如API小于等于24的），会降级使用TextureView  
+相机预览的使用方法如下
+```
+    private lateinit var cameraProviderFuture : ListenableFuture<ProcessCameraProvider>
+
+    private fun initPreview() {
+        cameraProviderFuture = ProcessCameraProvider.getInstance(requireActivity())
+
+        cameraProviderFuture.addListener({
+            val cameraProvider = cameraProviderFuture.get()
+            bindPreview(cameraProvider)
+        }, ContextCompat.getMainExecutor(requireActivity()))
+    }
+
+    private fun bindPreview(cameraProvider: ProcessCameraProvider) {
+        val preview = Preview.Builder().build()
+        val cameraSelector = CameraSelector.Builder()
+            .requireLensFacing(CameraSelector.LENS_FACING_BACK)
+            .build()
+        //TextureViewImpl          D  Surface set on Preview.
+//        binding.previewView.implementationMode = PreviewView.ImplementationMode.COMPATIBLE
 
 
+        //SurfaceViewImpl          D  Surface set on Preview.
+        //这个是默认模式
+        with(binding) {
+            previewView.implementationMode = PreviewView.ImplementationMode.PERFORMANCE
+            previewView.scaleType = PreviewView.ScaleType.FIT_CENTER
 
+        }
+//        binding.previewView.scaleX = 2.2F
+//        binding.previewView.scaleY = 2.2F
+        preview.setSurfaceProvider(binding.previewView.surfaceProvider)
+        //这里preview会返回一个camera对象，可以获取camera的一些信息，也可以对camera进行一些控制
+        val camera = cameraProvider.bindToLifecycle(this as LifecycleOwner, cameraSelector, preview)
+
+    }
+```
+
+#### 图片拍摄 ImageCapture
 
 
 
