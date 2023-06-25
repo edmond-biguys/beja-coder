@@ -1,9 +1,9 @@
 本地测试环境部署，使用node.js，先来配置node.js的环境，如下，是node的官网，  
-[node.js官网(https://nodejs.org/en/download)
+[node.js官网](https://nodejs.org/en/download)
 
 在上一步，安装好nodejs基础上执行下边的功能，  
-express使用
-安装express：```npm install express -g```
+express使用  
+安装express：```npm install express -g```  
 安装express generator：```npm install express-generator -g```
 
 -g 表示全局安装，-global
