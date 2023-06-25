@@ -17,6 +17,8 @@ express使用
 ```var usersRouter = require('./routes/users');```  
 ```app.use('/users', usersRouter);```
 
+访问users.js，输入内容为http://localhost:3000/users
+
 users.js下的代码如下，  
 ```
 var express = require('express');
